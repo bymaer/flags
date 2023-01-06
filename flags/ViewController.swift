@@ -26,6 +26,10 @@ class ViewController: UIViewController {
         
         if sender.imageView?.image == UIImage(named: countries[correctAnswer]) {
             title = "Correct"
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.navigationController!.navigationBar.backgroundColor = .white
+            }
+            navigationController!.navigationBar.backgroundColor = .green
             let correctAlert = UIAlertController(title: "Correct", message: "Congratulations. You are answered right!", preferredStyle: .alert)
             self.present(correctAlert, animated: true, completion: askQuestion)
             correctAlert.addAction(ok)
@@ -33,6 +37,10 @@ class ViewController: UIViewController {
         } else {
             title = "Wrong"
             self.score -= 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.navigationController!.navigationBar.backgroundColor = .white
+            }
+            navigationController!.navigationBar.backgroundColor = .red
             let wrongAlert = UIAlertController(title: "Oops", message: "Sorry. You are answered wrong! That’s the flag of \(countries[sender.tag].uppercased())", preferredStyle: .alert)
             self.present(wrongAlert, animated: true, completion: askQuestion)
             wrongAlert.addAction(ok)
@@ -53,9 +61,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         countries += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         
+        
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "My score", style: .plain, target: self, action: #selector(heyho))
         button1.layer.borderWidth = 1
         button2.layer.borderWidth = 1
         button3.layer.borderWidth = 1
+        
         
     askQuestion()
     }
@@ -68,8 +80,14 @@ class ViewController: UIViewController {
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
-        title = "Your score is \(score). Where is: \(countries[correctAnswer].uppercased())"
+        title = "Where is: \(countries[correctAnswer].uppercased())?"
     }
     
+    @objc func heyho() {
+        let scoreAlert = UIAlertController(title: "Score", message: "Your score is \(score)", preferredStyle: .alert)
+        self.present(scoreAlert, animated: true, completion: nil)
+        let ok = UIAlertAction(title: "OK", style: .default)
+        scoreAlert.addAction(ok)
+    }
 
 }
