@@ -51,7 +51,7 @@ class ViewController: UIViewController {
                 wrongAlert.addAction(ok)
             } else {
                 let restartGameButtonAlert = UIAlertAction(title: "Restart game", style: .default)
-                let finalAlert = UIAlertController(title: "Game over", message: "Your final score is \(score).", preferredStyle: .alert)
+                let finalAlert = UIAlertController(title: "Game over", message: "Your final score: \(score).", preferredStyle: .alert)
                 finalAlert.addAction(restartGameButtonAlert)
                 self.present(finalAlert, animated: true)
                 answers = 0
